@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8" />
+  <title>angular-toastr examples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/toastr.css" rel="stylesheet" type="text/css" />
+  <link href="css/custom.css" rel="stylesheet" type="text/css" />
+
+  <script src="vendor/angular.js"></script>
+  <script src="vendor/angular-animate.js"></script>
+  <script src="js/toastr.js"></script>
+  <script src="js/toastr.tpl.js"></script>
+  <script src="js/app.js"></script>
+</head>
+
+<body class="container" ng-controller="DemoCtrl">
+
+<script type="text/ng-template" id="default.html"><div class="{{toastClass}} {{toastType}}" ng-click="tapToast()">
+  <div ng-switch on="allowHtml">
+    <div ng-switch-default ng-if="title" class="{{titleClass}}" aria-label="{{title}}">{{title}}</div>
+    <div ng-switch-default class="{{messageClass}}" aria-label="{{message}}">{{message}}</div>
+    <div ng-switch-when="true" ng-if="title" class="{{titleClass}}" ng-bind-html="title"></div>
+    <div ng-switch-when="true" class="{{messageClass}}" ng-bind-html="message"></div>
+  </div>
+  <progress-bar ng-if="progressBar"></progress-bar>
+</div>
+</script>
+
+<a href="https://github.com/Foxandxss/angular-toastr"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+  <h1 class="text-center">angular-toastr demo</h1>
+  <div class="well row col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="toastTitle">Title</label>
+          <input type="text" ng-model="toast.title" class="form-control" id="toastTitle" placeholder="Toast title">
+        </div>
+        <div class="form-group">
+          <label for="toastMessage">Message</label>
+          <textarea class="form-control" ng-model="toast.message" id="toastMessage" placeholder="Toast message"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="toastButton">Close button html</label>
+          <input type="text" ng-model="options.closeHtml" class="form-control" id="toastbutton" ng-disabled="!options.closeButton">
+        </div>
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.newestOnTop"> New toasts on top?
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.tapToDismiss"> Tap to dismiss?
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.progressBar"> Progress bar
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.closeButton"> Close button?
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.html"> Allow html?
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.preventDuplicates"> Prevent duplicates
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.preventOpenDuplicates"> Prevent open duplicates
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.customTemplate"> Custom template
+          </label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Toast type</label>
+          <label class="radio">
+            <input type="radio" ng-model="options.type" value="success">Success
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.type" value="info">Info
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.type" value="warning">Warning
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.type" value="error">Error
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Toast position</label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-top-right">Top Right
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-bottom-right">Bottom Right
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-bottom-left">Bottom Left
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-top-left">Top Left
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-top-full-width">Top Full Width
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-bottom-full-width">Bottom Full Width
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-top-center">Top Center
+          </label>
+          <label class="radio">
+            <input type="radio" ng-model="options.position" value="toast-bottom-center">Bottom Center
+          </label>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="toastTimeout">Timeout</label>
+          <input type="text" ng-model="options.timeout" class="form-control" id="toastTimeout">
+          <em>If you set it to 0, it will stick</em>
+        </div>
+        <div class="form-group">
+          <label for="toastExtendedTimeout">Extended timeout</label>
+          <input type="text" ng-model="options.extendedTimeout" class="form-control" id="toastExtendedTimeout">
+        </div>
+        <div class="form-group">
+          <label for="maxNumberToasts">Maximum number of toasts</label>
+          <input type="text" ng-model="options.maxOpened" class="form-control" id="maxNumberToasts">
+          <em>0 means no limit</em>
+        </div>
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" ng-model="options.autoDismiss"> Auto dismiss?
+          </label>
+        </div>
+      </div>
+    </div>
+    <div ng-if="options.customTemplate" class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="toastMessage">Custom template</label>
+          <textarea class="form-control" ng-model="toast.customTemplate" id="custom-template" placeholder="Custom template"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button ng-click="openToast()" class="btn btn-primary">Open Toast</button>
+        <button ng-click="openRandomToast()" class="btn btn-primary">Open Random Toast</button>
+        <button ng-click="clearToasts()" class="btn btn-danger">Clear Toasts</button>
+        <button ng-click="clearLastToast()" class="btn btn-danger">Clear Last Toast</button>
+        <button ng-click="openPinkToast()" class="btn btn-pink">Custom Pink Toast</button>
+      </div>
+    </div>
+  </div>
+</body>
