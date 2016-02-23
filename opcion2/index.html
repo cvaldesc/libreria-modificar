@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8" />
+  <title>angular-toastr examples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/toastr.css" rel="stylesheet" type="text/css" />
+  <link href="css/custom.css" rel="stylesheet" type="text/css" />
+
+  <script src="vendor/angular.js"></script>
+  <script src="vendor/angular-animate.js"></script>
+  <script src="js/toastr.js"></script>
+  <script src="js/toastr.tpl.js"></script>
+  <script src="js/app.js"></script>
+</head>
+
+<body class="container" ng-controller="DemoCtrl">
+
+<script type="text/ng-template" id="default.html"><div class="{{toastClass}} {{toastType}}" ng-click="tapToast()">
+  <div ng-switch on="allowHtml">
+    <div ng-switch-default ng-if="title" class="{{titleClass}}" aria-label="{{title}}">{{title}}</div>
+    <div ng-switch-default class="{{messageClass}}" aria-label="{{message}}">{{message}}</div>
+    <div ng-switch-when="true" ng-if="title" class="{{titleClass}}" ng-bind-html="title"></div>
+    <div ng-switch-when="true" class="{{messageClass}}" ng-bind-html="message"></div>
+  </div>
+  <progress-bar ng-if="progressBar"></progress-bar>
+</div>
+</script>
+  {{options}}
+    <div class="row">
+      <div class="col-md-12">
+        <button ng-click="openToast()" class="btn btn-primary">Open Toast</button>
+        <button ng-click="openRandomToast()" class="btn btn-primary">Open Random Toast</button>
+        <button ng-click="clearToasts()" class="btn btn-danger">Clear Toasts</button>
+        <button ng-click="clearLastToast()" class="btn btn-danger">Clear Last Toast</button>
+        <button ng-click="openPinkToast()" class="btn btn-pink">Custom Pink Toast</button>
+      </div>
+    </div>
+  </div>
+</body>
