@@ -54,13 +54,13 @@
 
     function info(message, title, optionsOverride) {
       var type = _getOptions().iconClasses.info;
-      console.log(optionsOverride);
+      console.log("en la function info =");
+      console.log(optionsOverride.positionClass);
       return _buildNotification(type, message, title, optionsOverride);
     }
 
     function success(message, title, optionsOverride) {
       var type = _getOptions().iconClasses.success;
-     
       return _buildNotification(type, message, title, optionsOverride);
     }
 
@@ -116,7 +116,11 @@
         title = null;
       }
      
-
+      console.log("function _buildNotification");
+      console.log(type);
+      console.log(message);
+      console.log(title);
+      console.log(optionsOverride);
       return _notify({
         iconClass: type,
         message: message,
@@ -125,8 +129,11 @@
       });
     }
 
-    function _getOptions(optionsOverride) {
-      return angular.extend({}, toastrConfig);
+    function _getOptions(options) {
+      console.log("function _getOptions");
+      console.log(angular.extend({}, toastrConfig));
+      console.log(options);
+      return angular.extend(toastrConfig,options);
     }
 
     function _createOrGetContainer(options) {
@@ -151,8 +158,13 @@
 
     function _notify(map) {
 
-    
-      var options = _getOptions();
+      console.log("function _notify");
+      console.log(map.optionsOverride);
+
+      var options = _getOptions(map.optionsOverride);
+
+      console.log("en la function _notify al pasar la variable _getOptions");
+      console.log(options);
 
       if (shouldExit()) { return; }
 
@@ -175,7 +187,6 @@
       newToast.open.promise.then(function() {
         
         _createOrGetContainer(options).then(function() {
-         
           newToast.isOpened = true;
           if (options.newestOnTop) {
             $animate.enter(newToast.el, container).then(function() {
@@ -397,7 +408,7 @@
       scope.progressBar = scope.options.progressBar;
       scope.positionClass = scope.options.positionClass;
 
-      console.log(scope.options);
+      
       if (wantsCloseButton()) {
         var button = angular.element(scope.options.closeHtml),
           $compile = $injector.get('$compile');

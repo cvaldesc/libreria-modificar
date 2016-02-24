@@ -65,7 +65,7 @@ angular.module('app', ['toastr', 'ngAnimate'])
       autoDismiss: false,
       positionClass: 'toast-top-full-width',
       type: 'info',
-      timeout: '5000',
+      timeout: '122000',
       extendedTimeout: '1000',
       html: false,
       iconClasses: {
@@ -82,11 +82,7 @@ angular.module('app', ['toastr', 'ngAnimate'])
       maxOpened: 0,
       preventDuplicates: false,
       preventOpenDuplicates: true,
-      toastClass : 'bb',
-      containerId : "idConteniter",
-      templates:{
-        toast : 'custom'
-      }
+      toastClass : 'bb'
     };
 
    /* $scope.$watchCollection('options', function(newValue) {
